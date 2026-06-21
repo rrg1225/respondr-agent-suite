@@ -4,3 +4,4 @@ dist/
 traces/
 npm-debug.log*
 .DS_Store
+*.local.docx
