@@ -4,6 +4,8 @@
 
 Respondr Agent Suite is a full-stack AI incident response workspace. It demonstrates agent engineering beyond a chat box: typed tool contracts, runbook retrieval, risk scoring, approval gates, dry-run actions, trace persistence, and a polished React dashboard.
 
+> Resume and interview brief: [PORTFOLIO.md](PORTFOLIO.md)
+
 ---
 
 ## 简体中文
