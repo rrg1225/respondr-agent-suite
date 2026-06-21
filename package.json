@@ -1,0 +1,36 @@
+{
+  "name": "respondr-agent-suite",
+  "version": "1.0.0",
+  "description": "Full-stack AI incident response agent with runbook retrieval, tool permissions, risk scoring, and audit traces.",
+  "type": "module",
+  "license": "MIT",
+  "author": "lixian",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "ai-agent",
+    "incident-response",
+    "runbook",
+    "tool-calling",
+    "guardrails",
+    "react",
+    "express",
+    "fullstack"
+  ],
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^10.0.3",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "^8.0.16"
+  },
+  "devDependencies": {}
+}
