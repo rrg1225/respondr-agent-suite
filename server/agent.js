@@ -106,6 +106,15 @@ export function runIncidentAgent(input = {}, options = {}) {
   };
 }
 
+function severityPolicy(severity) {
+  const policies = {
+    P1: { responseSlaMinutes: 5, reviewCadenceMinutes: 15, escalation: "incident-commander" },
+    P2: { responseSlaMinutes: 15, reviewCadenceMinutes: 30, escalation: "service-owner" },
+    P3: { responseSlaMinutes: 60, reviewCadenceMinutes: 120, escalation: "team-backlog" }
+  };
+  return policies[severity] || policies.P3;
+}
+
 function classifyRisk(input, incident) {
   const text = `${input.operatorGoal || ""} ${input.notes || ""}`.toLowerCase();
   const blockedTerms = ["delete", "drop database", "disable audit", "ignore approval", "bypass approval", "page everyone"];
@@ -153,6 +162,7 @@ function buildTriage(incident, serviceSignals, runbook) {
 
   return {
     score,
+    responsePolicy: severityPolicy(incident.severity),
     confidence: criticalSignals.length ? "high" : "medium",
     escalate: incident.severity === "P1",
     approvalRequired,
@@ -187,6 +197,8 @@ function buildHandoff(incident, triage, runbook) {
     audience: incident.owner,
     severity: incident.severity,
     summary: `${incident.customerImpact} Current hypothesis: ${triage.rootCauseHypothesis}`,
+    responseSlaMinutes: triage.responsePolicy.responseSlaMinutes,
+    escalation: triage.responsePolicy.escalation,
     runbook: runbook?.title || "No matching runbook",
     nextSteps: runbook?.steps || ["Assign service owner", "Collect logs", "Reassess severity"],
     approvalNote: triage.approvalRequired

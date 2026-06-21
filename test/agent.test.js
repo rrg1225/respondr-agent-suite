@@ -18,6 +18,8 @@ test("runs a grounded incident triage with handoff", () => {
   assert.equal(run.status, "needs-approval");
   assert.equal(run.risk.level, "high");
   assert.equal(run.handoff.audience, "Payments Platform");
+  assert.equal(run.triage.responsePolicy.responseSlaMinutes, 5);
+  assert.equal(run.handoff.escalation, "incident-commander");
   assert.ok(run.trace.some((event) => event.tool === "runbook.retrieve"));
   assert.ok(run.triage.actions.some((action) => action.approval));
 });
