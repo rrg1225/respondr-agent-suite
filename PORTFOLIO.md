@@ -4,7 +4,7 @@
 
 - Built a full-stack AI incident response agent with runbook retrieval, typed tool contracts, risk scoring, approval gates, dry-run mitigations, and audit trace persistence.
 - Modeled realistic SRE workflows across incident intake, telemetry correlation, runbook grounding, mitigation planning, and stakeholder handoff.
-- Added deterministic agent tests for scored incidents, grounded triage, unsafe instruction blocking, and unknown incident handling.
+- Added deterministic incident logic for scored incidents, grounded triage, unsafe instruction blocking, and unknown incident handling.
 
 ## What This Proves
 
@@ -16,7 +16,6 @@
 
 ```bash
 npm ci
-npm test
 npm run build
 ```
 
