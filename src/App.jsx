@@ -35,7 +35,7 @@ export default function App() {
         body: JSON.stringify({ incidentId: selected?.id, operatorGoal, maxSteps: 8 })
       });
       const payload = await response.json();
-      if (!response.ok) throw new Error(payload.error || payload.final?.summary || "Agent run failed");
+      if (!response.ok) throw new Error(payload.error?.message || payload.error || payload.final?.summary || "Agent run failed");
       setRun(payload);
     } catch (err) {
       setError(err.message);

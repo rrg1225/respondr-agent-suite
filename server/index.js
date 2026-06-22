@@ -6,6 +6,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { incidents, listIncidents, runbooks } from "./data.js";
 import { runIncidentAgent, toolCatalog } from "./agent.js";
 import { createRuntimeState, installRuntimeControls, runtimeMetrics } from "./runtime.js";
+import { asyncRoute, errorHandler, notFound, requireObjectBody, requireText } from "./http.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = resolve(__dirname, "..");
@@ -41,24 +42,24 @@ export function createApp() {
     res.json(runtimeMetrics(runtime));
   });
 
-  app.post("/api/agent/runs", async (req, res, next) => {
-    try {
-      const run = runIncidentAgent(req.body);
-      await persistTrace(run);
-      res.status(run.status === "failed" ? 404 : 200).json(run);
-    } catch (error) {
-      next(error);
-    }
-  });
+  app.post("/api/agent/runs", asyncRoute(async (req, res) => {
+    const body = requireObjectBody(req.body);
+    const run = runIncidentAgent({
+      ...body,
+      incidentId: requireText(body.incidentId, "incidentId", 4)
+    });
+    await persistTrace(run);
+    res.status(run.status === "failed" ? 404 : 200).json(run);
+  }));
+
+  app.use("/api", notFound);
 
   app.use(express.static(join(rootDir, "dist")));
   app.get(/.*/, (_req, res) => {
     res.sendFile(join(rootDir, "dist", "index.html"));
   });
 
-  app.use((error, _req, res, _next) => {
-    res.status(500).json({ error: error.message || "unexpected server error" });
-  });
+  app.use(errorHandler("respondr-agent-suite"));
 
   return app;
 }

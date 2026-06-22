@@ -19,13 +19,13 @@ Respondr Agent Suite is a full-stack AI incident response workspace. It demonstr
 
 ### 核心亮点
 
-- **全栈结构完整**：React + Vite 前端，Express API 后端，Node test 自动化验证。
+- **完整全栈结构**：React + Vite 前端，Express API 后端，Node test 自动化验证。
 - **Agent Loop 明确**：observe -> decide -> act -> validate -> handoff，每一步写入 trace。
 - **工具权限边界**：`read` 与 `write-dry-run` 工具分层，避免 demo 误导成真实外部写入。
 - **Runbook 检索**：根据事故服务检索处置手册，并把审批要求带入 agent 决策。
 - **风险与审批门**：P1 或危险指令会触发高风险/阻断路径，mitigation 只输出 dry-run。
-- **可下载审计 Trace**：前端可下载 JSON trace，后端也会把 trace 存入 `traces/`。
-- **无需 API Key 可展示**：确定性 planner 保证评审者在离线环境也能完整体验。
+- **工程化 API 层**：统一输入校验、结构化错误、请求 ID、404 和安全响应头。
+- **运行时指标**：`/api/metrics/runtime` 提供请求数、状态码分布、错误数和启动时间。
 
 ### 快速开始
 
@@ -42,7 +42,7 @@ npm run dev
 npm run dev      # 同时启动 API 和 Vite
 npm run build    # 构建前端
 npm run start    # 启动生产 API 并托管 dist
-npm test         # 运行 agent 与数据测试
+npm test         # 运行 agent、数据和 API 测试
 ```
 
 ### API 一览
@@ -53,15 +53,12 @@ npm test         # 运行 agent 与数据测试
 | `GET` | `/api/incidents` | 获取内置事故列表与评分 |
 | `GET` | `/api/tools` | 获取 agent 工具目录与权限 |
 | `GET` | `/api/runbooks` | 获取 runbook 数据 |
+| `GET` | `/api/metrics/runtime` | 返回运行时请求指标 |
 | `POST` | `/api/agent/runs` | 执行一次事故响应 agent run |
 
-### 适合展示的能力
+### 作品集价值
 
-- AI Agent 状态机和工具调用设计
-- Guardrails、审批门和 dry-run 安全边界
-- Runbook/RAG 风格的知识检索落地
-- 事故响应产品化 UI
-- 可审计 trace 与场景化测试
+这个项目展示 AI Agent 状态机、工具调用设计、Guardrails、审批门、dry-run 安全边界、Runbook/RAG 风格检索、事故响应产品化 UI、可审计 trace 与场景化测试。
 
 ---
 
@@ -80,8 +77,8 @@ The default planner is deterministic and requires no API key, so reviewers can r
 - **Tool permission model**: `read` and `write-dry-run` tools make side effects explicit.
 - **Runbook grounding**: response plans are anchored to service-specific runbooks.
 - **Risk and approval gates**: P1 incidents and unsafe instructions trigger approval or blocked paths.
+- **Hardened API layer** with input validation, structured errors, request IDs, 404s, and security headers.
 - **Audit traces**: every run can be downloaded from the UI and is persisted under `traces/`.
-- **No key required**: deterministic mode keeps the demo reproducible and easy to evaluate.
 
 ### Quick Start
 
@@ -101,6 +98,6 @@ npm run start
 npm test
 ```
 
-## Repository Topics
+### Repository Topics
 
 `ai-agent`, `incident-response`, `sre`, `runbook`, `guardrails`, `tool-calling`, `react`, `express`, `fullstack`
