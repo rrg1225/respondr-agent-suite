@@ -11,7 +11,8 @@
     "dev:client": "vite --host 0.0.0.0",
     "build": "vite build",
     "start": "node server/index.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "health": "node scripts/project-health.js"
   },
   "keywords": [
     "ai-agent",
@@ -31,6 +32,5 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^8.0.16"
-  },
-  "devDependencies": {}
+  }
 }
