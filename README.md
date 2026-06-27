@@ -60,6 +60,7 @@ Open `http://localhost:5173`. The API defaults to `http://localhost:4330`.
 
 ```bash
 npm run dev
+npm test
 npm run build
 npm run start
 ```
@@ -81,6 +82,19 @@ npm run start
 - Unsafe operator goals are blocked.
 - All actions remain dry-run by default.
 - API keys are not required for the deterministic demo.
+
+## Quality Gates
+
+- `npm test` covers incident listing and dry-run triage behavior.
+- `npm run build` validates the production React bundle.
+- GitHub Actions runs tests and build on pull requests and `main`.
+- Trace artifacts are generated locally and ignored by Git.
+
+## Roadmap
+
+- Add incident timeline imports from webhook payloads.
+- Add policy packs for service-specific mitigation approvals.
+- Add audit export for post-incident review packets.
 
 ## License
 
