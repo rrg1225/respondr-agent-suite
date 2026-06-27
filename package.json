@@ -12,7 +12,9 @@
     "build": "vite build",
     "start": "node server/index.js",
     "test": "node --test test/*.test.js",
-    "health": "node scripts/project-health.js"
+    "health": "node scripts/project-health.js",
+    "ops:check": "node scripts/ops-check.js",
+    "ci:local": "npm run health && npm run ops:check && npm test && npm run build"
   },
   "keywords": [
     "ai-agent",
@@ -32,5 +34,8 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^8.0.16"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
