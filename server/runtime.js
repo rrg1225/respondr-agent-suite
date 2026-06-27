@@ -20,6 +20,11 @@ export function installRuntimeControls(app, state) {
     res.setHeader("x-content-type-options", "nosniff");
     res.setHeader("referrer-policy", "no-referrer");
     res.setHeader("x-frame-options", "DENY");
+    res.setHeader("permissions-policy", "camera=(), microphone=(), geolocation=()");
+    res.setHeader(
+      "content-security-policy",
+      "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'"
+    );
     next();
   });
 
