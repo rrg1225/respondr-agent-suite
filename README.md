@@ -74,6 +74,7 @@ npm run start
 | `GET` | `/api/runbooks` | Service runbook data |
 | `GET` | `/api/tools` | Agent tool catalog |
 | `GET` | `/api/metrics/runtime` | Runtime request and status metrics |
+| `GET` | `/api/metrics/scorecard` | Operational readiness score and checks |
 | `POST` | `/api/agent/runs` | Run incident triage |
 
 ## Safety Model
